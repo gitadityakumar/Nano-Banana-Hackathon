@@ -1,0 +1,7 @@
+{
+  "name": "Virtual Hairstyler",
+  "description": "Use your camera or upload a photo to try on new hairstyles with AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

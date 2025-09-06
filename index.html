@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Hairstyler</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@1.0.0"
+        }
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="header-icon"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                AI Virtual Hairstyler
+            </h1>
+            <p class="tagline">See Your Future Hair Today!</p>
+        </div>
+        <div class="theme-switcher">
+            <label for="theme-toggle" class="theme-toggle-label">
+                <input type="checkbox" id="theme-toggle" aria-label="Toggle light and dark mode">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </header>
+    <main class="container">
+        <div class="controls-panel">
+            <h2>1. Your Photo</h2>
+            <div class="mirror-card">
+                <video id="webcam-feed" autoplay playsinline aria-label="Webcam Feed"></video>
+                <canvas id="photo-canvas" aria-label="Captured or Uploaded Photo"></canvas>
+            </div>
+            <div class="photo-actions">
+                <button id="snap-button" aria-label="Snap Photo">Snap Photo</button>
+                <input type="file" id="upload-input" accept="image/*" style="display: none;">
+                <button id="upload-button" aria-label="Upload Photo">Upload Photo</button>
+            </div>
+
+            <h2>2. Choose Your Style</h2>
+            <div class="style-options">
+                <fieldset>
+                    <legend>Gender</legend>
+                    <div class="gender-selection">
+                        <label><input type="radio" name="gender" value="female" checked> Female</label>
+                        <label><input type="radio" name="gender" value="male"> Male</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Hairstyle</legend>
+                    <div id="hairstyle-thumbnails" class="hairstyle-thumbnail-grid">
+                        <!-- Hairstyle thumbnails will be populated by JS -->
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Hair Effects</legend>
+                    <select id="hair-effects-select" aria-label="Select Hair Effect">
+                        <!-- Hair effects options will be populated by JS -->
+                    </select>
+                </fieldset>
+                
+                <fieldset id="facial-hair-fieldset">
+                    <legend>Facial Hair</legend>
+                    <select id="facial-hair-select" aria-label="Select Facial Hair">
+                        <!-- Facial hair options will be populated by JS -->
+                    </select>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Fine-Tuning</legend>
+                     <div class="control-group">
+                        <label for="color-picker">Hair Color:</label>
+                        <input type="color" id="color-picker" value="#6a4028" aria-label="Hair Color Picker">
+                    </div>
+                    <div class="control-group">
+                        <label for="length-slider">Length: <span id="length-value">Medium</span></label>
+                        <input type="range" id="length-slider" min="1" max="3" value="2" step="1" aria-label="Hair Length Slider">
+                    </div>
+                    <div class="control-group">
+                        <label for="volume-slider">Volume: <span id="volume-value">Medium</span></label>
+                        <input type="range" id="volume-slider" min="1" max="3" value="2" step="1" aria-label="Hair Volume Slider">
+                    </div>
+                </fieldset>
+            </div>
+            
+            <button id="generate-button" disabled>Generate New Look</button>
+        </div>
+        <div class="results-panel">
+            <h2>Your New Looks!</h2>
+            <div id="loading-indicator" class="loading-indicator" style="display: none;" aria-label="Loading new look">
+                <svg class="scissors-loader" width="80" height="80" viewBox="0 0 100 100">
+                    <g class="scissors-blades">
+                        <path d="M 25 20 L 50 45 L 25 70" class="scissors-blade" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M 75 20 L 50 45 L 75 70" class="scissors-blade" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </g>
+                    <circle cx="20" cy="80" r="10" stroke-width="5" fill="none"/>
+                    <circle cx="80" cy="80" r="10" stroke-width="5" fill="none"/>
+                </svg>
+                <p>Generating your new look... This can take a moment.</p>
+            </div>
+            <div id="results-gallery" class="results-gallery" aria-live="polite">
+                <p id="results-placeholder" class="placeholder">Your generated hairstyles will appear here.</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="fullscreen-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true">
+        <button id="modal-close-btn" class="modal-close-btn" aria-label="Close fullscreen view">&times;</button>
+        <div class="modal-controls">
+            <button id="zoom-in-btn" aria-label="Zoom in">+</button>
+            <button id="zoom-out-btn" aria-label="Zoom out">-</button>
+        </div>
+        <div class="modal-content">
+            <img id="fullscreen-image" src="" alt="Fullscreen Generated Look">
+        </div>
+    </div>
+
+    <script type="module" src="index.tsx"></script>
+</body>
+</html>
