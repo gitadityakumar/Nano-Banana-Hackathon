@@ -6,7 +6,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1va3ojXWJpE0h_20xyY3P64SxVDa2o1E-
+View my app here : [https://nano-banana-hackathon.vercel.app/]
 
 ## Run Locally
 
